@@ -12,10 +12,14 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Array;
 import java.nio.CharBuffer;
 import java.nio.file.Files;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.Callable;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -34,6 +38,7 @@ public class ProcessingHandler extends HttpServlet {
 
     public void init() throws ServletException {
         ServletContext context = this.getServletContext();
+
         System.out.println("processing init()");
         System.out.println(context.getInitParameter("SHINGLE_SIZE"));
         SHINGLE_SIZE = Integer.parseInt(context.getInitParameter("SHINGLE_SIZE"));
@@ -47,24 +52,44 @@ public class ProcessingHandler extends HttpServlet {
         final Part filePart = req.getPart("txtDocument");
 
         final InputStream is = filePart.getInputStream();
+
         Set<String> shingles = new HashSet<>(64);
-        char [] shingle = new char[SHINGLE_SIZE];
 
         BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
-        int chars = br.read(shingle, 0, SHINGLE_SIZE);
+        Consumer<String> lineConsumer = line -> {
 
-        System.out.println("Chars read from buffer: " + chars + " | "
-                            + new String(shingle));
+            if(line.length() > 15){
+                // trim the last nth of extra characters and place into temp
+                // 15 character string goes into shingle, remaining added to next
+                // shingle.
+            }else if(line.length() < 15){
+                //
+            }
+            System.out.println("NEXT LINE");
+        };
+
 
         Stream<String> stream = br.lines();
 
         System.out.println("Characters left in buffer: ");
-        stream.forEach(System.out::println);
+        stream.forEach(lineConsumer);
 
 
 
         req.getRequestDispatcher("/processing.jsp").forward(req, resp);
         //doGet(req,resp);
+    }
+
+    private void testCallable(){
+        Callable<Integer> task = () -> {
+            try {
+                TimeUnit.SECONDS.sleep(1);
+                return 123;
+            }
+            catch (InterruptedException e) {
+                throw new IllegalStateException("task interrupted", e);
+            }
+        };
     }
 }
