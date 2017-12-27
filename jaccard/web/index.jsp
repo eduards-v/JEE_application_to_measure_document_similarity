@@ -8,7 +8,8 @@
 	<tr>
 		<td valign="top">
 
-			<form method="post" action="processing">
+			<%-- enctype="multipart/form-data" is required for file upload control --%>
+			<form method="post" enctype="multipart/form-data" action="processing">
 				<fieldset>
 					<legend><h3>Specify Details</h3></legend>
 

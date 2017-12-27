@@ -18,21 +18,13 @@ import javax.servlet.http.HttpServletResponse;
 
 
 
-@MultipartConfig(
-        fileSizeThreshold = 2097152,
-        maxFileSize = 10485760L,
-        maxRequestSize = 52428800L
 
-)
 public class ServiceHandler extends HttpServlet {
 
     private Logger logger = Logger.getLogger("ServiceHandlerLogger");
     private int SHINGLE_SIZE;
     private static long jobNumber = 0L;
 
-
-    public ServiceHandler() {
-    }
 
     public void init() throws ServletException {
         System.out.println("index init()");
@@ -42,7 +34,4 @@ public class ServiceHandler extends HttpServlet {
         logger.log(Level.INFO, "Inside GET");
     }
 
-    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-    }
 }
