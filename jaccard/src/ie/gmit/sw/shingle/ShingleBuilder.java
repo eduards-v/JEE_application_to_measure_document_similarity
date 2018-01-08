@@ -5,68 +5,67 @@ import java.util.*;
 import java.util.stream.Stream;
 
 public class ShingleBuilder{
-
-    private List<String> wordsList;
-    private List<List<String>> shingleParts;
     private Set<Integer> shingleSet;
     private Set<String> shingleStrSet;
     private final int SHINGLE_SIZE;
     private final InputStream in;
 
     public ShingleBuilder(int shingle_size, InputStream in) {
-        this.wordsList = new ArrayList<>();
-        this.shingleParts = new ArrayList<>();
         this.SHINGLE_SIZE = shingle_size;
         this.shingleSet = new HashSet<>();
         this.shingleStrSet = new HashSet<>();
-        this.in = in;
+
+        // BufferedInputStream dramatically reduce number of calls
+        // to JNI(Java Native Interface) of the filesystem.
+        // Improves performance by ~90%
+        this.in = new BufferedInputStream(in);
 
         System.out.println("Inside ShingleBuilder Constructor");
 
-        // start building
+        // start building. Is it safe to start in a constructor?
         initShingleBuilder();
     }
 
     private void initShingleBuilder(){
 
+        List<String> allWords = new ArrayList<>();
         System.out.println("Inside init");
-        // BufferedInputStream dramatically reduce number of calls
-        // to JNI(Java Native Interface) of the filesystem.
-        // Improves performance by ~90%
-        InputStream bis = new BufferedInputStream(in);
 
         // BufferedReader to read underlying input stream
-        BufferedReader br = new BufferedReader(new InputStreamReader(bis));
+        BufferedReader br = new BufferedReader(new InputStreamReader(in));
 
         // get all lines from buffered reader as a Stream
         Stream<String> stream = br.lines();
         // for each line in a stream, split into words and add all words to list
-        stream.forEach((String line) -> wordsList.addAll(Arrays.asList(line.split(" "))));
+        stream.forEach((String line) -> allWords.addAll(Arrays.asList(line.split(" "))));
 
 
-        // chop List of all words into shingle parts
-        chopIntoShingleParts();
-        // populates shingle set from chopped shingle parts
-        createShingleSet();
+        // chop List of all words into shingle parts chopIntoShingleParts()
+        // populates shingle set from chopped shingle parts createShingleSet()
+        createShingleSet(chopIntoShingleParts(allWords));
 
     }
     // adopted from https://stackoverflow.com/questions/2895342/java-how-can-i-split-an-arraylist-in-multiple-small-arraylists
     // chop the list of an elements into list of sublists of specific size (SHINGLE_SIZE)
-    private void chopIntoShingleParts(){
-        final int N = wordsList.size();
+    private List<List<String>> chopIntoShingleParts(List<String> allWords){
+        List<List<String>> shingleParts = new ArrayList<>();
+        final int N = allWords.size();
         for(int i = 0; i < N; i += SHINGLE_SIZE){
-            this.shingleParts.add( new ArrayList<>(
-                    wordsList.subList(i, Math.min(N, i + SHINGLE_SIZE)))
+            shingleParts.add( new ArrayList<>(
+                    allWords.subList(i, Math.min(N, i + SHINGLE_SIZE)))
             );
         }
+
+        return shingleParts;
     }
 
 
-    private void createShingleSet(){
+    // Concats words in each sublist to form a shingle, and adds to a Set
+    private void createShingleSet(List<List<String>> shingleParts){
         for(List<String> part : shingleParts){
             shingleStrSet.add(String.join(" ", part));
             String shingle = String.join(" ", part);
-            shingleSet.add((shingle.hashCode() & 0x7fffffff) % shingleParts.size());
+            shingleSet.add(shingle.hashCode());
         }
     }
 
