@@ -1,12 +1,10 @@
 package ie.gmit.sw.hasher;
 
-import java.util.Collections;
 import java.util.HashSet;
-import java.util.Queue;
 import java.util.Set;
 
 public class MinHasher {
-    
+
     private Set<Integer> docHashes;
     private Set<Integer> minDocHashes;
     private int[] randomHashes;
@@ -42,6 +40,11 @@ public class MinHasher {
             System.out.println("Doc hashes: " + docHashes.size());
             docHashes.remove(min_selected);
         }
+    }
+
+    public void setDocHashes(Set<Integer> docHashes) {
+        this.docHashes = docHashes;
+        this.minDocHashes.clear();
     }
 
     public Set<Integer> getMinDocHashes() {

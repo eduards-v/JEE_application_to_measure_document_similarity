@@ -18,23 +18,27 @@ public class ShinglesTestRunner {
         // system safe path declaration to a file
         File dir = new File("files", "inner");
         File f = new File(dir, "hello.txt");
+        File f2 = new File(dir, "db_sample.txt");
 
-        ShingleBuilder shingleBuilder;
-        Set<String> shingleSet = new HashSet<>();
-        Set<Integer> shingleHashSet = new HashSet<>();
+        //ShingleBuilder shingleBuilder;
+        Set<String> shingleSetA = new HashSet<>();
+        Set<Integer> shingleHashSetA = new HashSet<>();
+        Set<String> shingleSetB = new HashSet<>();
+        Set<Integer> shingleHashSetB = new HashSet<>();
         MinHasher minHasher;
 
-        Set<Integer> min_hashed_shingles;
+        Set<Integer> min_hashed_shingles_A;
+        Set<Integer> min_hashed_shingles_B;
 
 
 
 
         try (InputStream in = new FileInputStream(f)){
 
-            shingleBuilder = new ShingleBuilder(7, in);
+            ShingleBuilder shingleBuilder = new ShingleBuilder(7, in);
 
-            shingleSet = shingleBuilder.getShingleStrSet();
-            shingleHashSet = shingleBuilder.getShingleSet();
+            shingleSetA = shingleBuilder.getShingleStrSet();
+            shingleHashSetA = shingleBuilder.getShingleSet();
 
 
         } catch (FileNotFoundException e) {
@@ -43,19 +47,50 @@ public class ShinglesTestRunner {
             e.printStackTrace();
         }
 
-        System.out.println("___________ Words Shingles ______________");
-        shingleSet.forEach(System.out::println);
-        System.out.println();
+        try(InputStream in = new FileInputStream(f2)){
+            ShingleBuilder shingleBuilder = new ShingleBuilder(7, in);
+            shingleSetB = shingleBuilder.getShingleStrSet();
+            shingleHashSetB = shingleBuilder.getShingleSet();
 
-        minHasher = new MinHasher(shingleHashSet, randomHashes(100));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+//        System.out.println("___________ Words Shingles ______________");
+//        shingleSetA.forEach(System.out::println);
+//        System.out.println();
+
+        minHasher = new MinHasher(shingleHashSetA, randomHashes(200));
 
         minHasher.doMinHashing();
-        min_hashed_shingles = minHasher.getMinDocHashes();
+        min_hashed_shingles_A = minHasher.getMinDocHashes();
 
-        System.out.println("_____________Min Hashed Shingles_____________");
-        System.out.println("Size: " + min_hashed_shingles.size());
-        System.out.println();
-        min_hashed_shingles.forEach(System.out::println);
+        minHasher.setDocHashes(shingleHashSetB);
+        minHasher.doMinHashing();
+        min_hashed_shingles_B = minHasher.getMinDocHashes();
+
+//        System.out.println("_____________Min Hashed Shingles A_____________");
+//        System.out.println("Size: " + min_hashed_shingles_A.size());
+//        System.out.println();
+//        min_hashed_shingles_A.forEach(System.out::println);
+
+        System.out.println("_____________Min Hashed Shingles Similarity_____________");
+        boolean similar = shingleSetA.retainAll(shingleSetB);
+
+        System.out.println("Are docs similar: " + similar);
+        System.out.println(shingleSetA.size());
+        System.out.println(shingleSetB.size());
+        shingleSetA.forEach(System.out::println);
+        System.out.println(shingleSetA.size());
+
+
+//        System.out.println("_____________Set A after retention_____________");
+//        System.out.println("A: " + min_hashed_shingles_A.size());
+//        System.out.println("B: " + min_hashed_shingles_B.size());
+//        min_hashed_shingles_B.forEach(System.out::println);
 
 
     }
