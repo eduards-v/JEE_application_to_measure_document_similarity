@@ -1,0 +1,10 @@
+If I add something here, it is practically impossible to find precise similarity between
+two document using Jaccard Similarity and shingle splitting methods. Hello, my name is Mark.
+I am from Ireland. I live here all my life. I finished secondary school here, in Ireland, and did two years of
+post leaving cert course in Information Technologies. Thereafter, I've been working
+in a bar for past 5 years. Shingling documents won't work mainly because number of words
+in documents vary and there is no guaranty that similar shingles will be built from both docs.
+I have applied for Software Development course in GMIT to further study computing and programming.
+On my second year in GMIT, I was successful to complete two modules in second semester with exemplary mark.
+During this period I begin to realise my true nature of software developer. Just to prove the nature
+that it won't work with flat shingle splitting.

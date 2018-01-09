@@ -12,8 +12,8 @@ public class ShingleBuilder{
 
     public ShingleBuilder(int shingle_size, InputStream in) {
         this.SHINGLE_SIZE = shingle_size;
-        this.shingleSet = new HashSet<>();
-        this.shingleStrSet = new HashSet<>();
+        this.shingleSet = new TreeSet<>();
+        this.shingleStrSet = new TreeSet<>();
 
         // BufferedInputStream dramatically reduce number of calls
         // to JNI(Java Native Interface) of the filesystem.
@@ -49,13 +49,14 @@ public class ShingleBuilder{
     // chop the list of an elements into list of sublists of specific size (SHINGLE_SIZE)
     private List<List<String>> chopIntoShingleParts(List<String> allWords){
         List<List<String>> shingleParts = new ArrayList<>();
+        List<String> temp;
         final int N = allWords.size();
-        for(int i = 0; i < N; i += SHINGLE_SIZE){
-            shingleParts.add( new ArrayList<>(
-                    allWords.subList(i, Math.min(N, i + SHINGLE_SIZE)))
-            );
+        for(int i = 0; i < N; i ++){
+            temp = new ArrayList<>(allWords.subList(i, Math.min(N, i + SHINGLE_SIZE)));
+            if(temp.size()==SHINGLE_SIZE) shingleParts.add(temp);
         }
 
+        //System.out.println(shingleParts);
         return shingleParts;
     }
 

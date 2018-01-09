@@ -1,0 +1,7 @@
+Hello, my name is Eddie. I am from Latvia. I live in Ireland for about 10 years.
+I finish 3 years of secondary school here, in Ireland, and did two years of
+post leaving cert course in Information Technologies. Thereafter, I have applied
+for Software Development course in GMIT to further study computing and programming.
+On my second year in GMIT, I was unsuccessful to complete two modules in second semester
+with passing mark. I had to repeat them next year. During this period I begin to realise
+my true nature of a programmer. Just to prove the nature that it won't work with flat shingle splitting.
