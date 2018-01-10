@@ -30,7 +30,7 @@ public class MinHasher {
 
             for(int docHash : docHashes){
                                                         // eliminating negative hashcode value
-                temp_hash = ((docHash ^ randomHashes[i])& 0x7fffffff);
+                temp_hash = docHash ^ randomHashes[i];
                 if(temp_hash < min_hash){
                     min_selected = docHash;
                     min_hash = temp_hash;
