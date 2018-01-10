@@ -19,7 +19,7 @@ public class ServiceTester {
         List<Document> documents = new ArrayList<>();
         Collection<Result> results;
 
-        File path = new File("files","inner");
+        File path = new File("files","resources");
         File resource = new File(path, "upload.txt");
         List<String> resourceText = File2ListFetcher.fetchFile(resource);
 

@@ -31,11 +31,11 @@ public class DbDocument {
         this.docShinglesSet = docShinglesSet;
     }
 
+
     @Override
     public String toString() {
         return "DbDocument{" +
                 "docName='" + docName + '\'' +
-                ", docShinglesSet=" + docShinglesSet +
                 '}';
     }
 }
