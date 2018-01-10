@@ -24,10 +24,13 @@ public class ShingleFactoryClient {
         int shingle_size = 5;
         Set<String> uploadStringSet = new HashSet<>();
         Set<String> resourceStringSet = new HashSet<>();
+        Set<Integer> uploadHashCodeSet = new HashSet<>();
+        Set<Integer> resourceHashCodeSet = new HashSet<>();
         try{
             uploadStringSet = k_gram_factory.getShinglesAsString(uploadText, shingle_size);
             resourceStringSet = k_gram_factory.getShinglesAsString(resourceText, shingle_size);
-
+            uploadHashCodeSet = k_gram_factory.getShinglesAsIntegers(uploadText, shingle_size);
+            resourceHashCodeSet = k_gram_factory.getShinglesAsIntegers(resourceText, shingle_size);
         }catch (IllegalArgumentException e){
             System.out.println(e.getMessage());
         }
@@ -35,12 +38,22 @@ public class ShingleFactoryClient {
 
         System.out.println("\n________ Resource String Shingles Set _________\n" +
                 "Set cardinality: " + resourceStringSet.size() + "\n");
+        System.out.println("\n________ Resource Hashcode Shingles Set _________\n" +
+                "Set cardinality: " + resourceStringSet.size() + "\n");
         System.out.println("\n________ Upload String Shingles Set _________\n" +
                 "Set cardinality: " + uploadStringSet.size() + "\n");
+        System.out.println("\n________ Upload Hashcode Shingles Set _________\n" +
+                "Set cardinality: " + uploadStringSet.size() + "\n");
 
-        System.out.println("\n________ Intersection between Upload and Resource Sets _________\n");
-        IntersectionStrategy intersector = new StringSetIntersection();
+        System.out.println("\n________ Intersection between Upload and Resource String Sets _________\n");
+        SetIntersector intersector = new StringSetIntersector();
         float intersection = intersector.getIntersection(resourceStringSet, uploadStringSet);
+        uploadStringSet.retainAll(resourceStringSet);
+        System.out.println("Sets intersection rate: " + intersection + "%\n");
+
+        System.out.println("\n________ Intersection between Upload and Resource Hashcode Sets _________\n");
+        intersector = new MinHashSetIntersector();
+        intersection = intersector.getIntersection(resourceHashCodeSet, uploadHashCodeSet);
         uploadStringSet.retainAll(resourceStringSet);
         System.out.println("Sets intersection rate: " + intersection + "%\n");
 

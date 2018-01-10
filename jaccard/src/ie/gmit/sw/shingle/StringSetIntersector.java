@@ -3,7 +3,7 @@ package ie.gmit.sw.shingle;
 import java.util.HashSet;
 import java.util.Set;
 
-public class StringSetIntersection implements IntersectionStrategy<String> {
+public class StringSetIntersector implements SetIntersector<String> {
 
 
     @Override
