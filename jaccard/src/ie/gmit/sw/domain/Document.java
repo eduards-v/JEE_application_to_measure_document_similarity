@@ -1,26 +1,18 @@
 package ie.gmit.sw.domain;
 
-import java.util.Set;
+import java.util.List;
 
 public class Document {
 
-    private int docId;
     private String docName;
-    private Set<Integer> docShingles;
+    private List<String> allDocWords;
 
-    public Document() { }
+    public Document() {
+    }
 
-    public Document(String docName, Set<Integer> docShingles) {
+    public Document(String docName, List<String> allDocWords) {
         this.docName = docName;
-        this.docShingles = docShingles;
-    }
-
-    public int getDocId() {
-        return docId;
-    }
-
-    public void setDocId(int docId) {
-        this.docId = docId;
+        this.allDocWords = allDocWords;
     }
 
     public String getDocName() {
@@ -31,21 +23,19 @@ public class Document {
         this.docName = docName;
     }
 
-    public Set<Integer> getDocShingles() {
-        return docShingles;
+    public List<String> getAllDocWords() {
+        return allDocWords;
     }
 
-    public void setDocShingles(Set<Integer> docShingles) {
-        this.docShingles = docShingles;
+    public void setAllDocWords(List<String> allDocWords) {
+        this.allDocWords = allDocWords;
     }
-
 
     @Override
     public String toString() {
         return "Document{" +
-                "docId=" + docId +
-                ", docName='" + docName + '\'' +
-                ", docShingles=" + docShingles +
+                "docName='" + docName + '\'' +
+                ", allDocWords=" + allDocWords +
                 '}';
     }
 }
