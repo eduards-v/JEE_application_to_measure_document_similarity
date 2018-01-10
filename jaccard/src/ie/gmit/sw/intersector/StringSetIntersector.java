@@ -1,4 +1,4 @@
-package ie.gmit.sw.shingle;
+package ie.gmit.sw.intersector;
 
 import java.util.HashSet;
 import java.util.Set;

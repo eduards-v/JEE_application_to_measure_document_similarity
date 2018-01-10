@@ -1,5 +1,7 @@
 package ie.gmit.sw.shingle;
 
+import ie.gmit.sw.intersector.*;
+
 import java.io.*;
 import java.util.*;
 import java.util.stream.Stream;
@@ -51,13 +53,17 @@ public class ShingleFactoryClient {
         uploadStringSet.retainAll(resourceStringSet);
         System.out.println("Sets intersection rate: " + intersection + "%\n");
 
-        System.out.println("\n________ Intersection between Upload and Resource Hashcode Sets _________\n");
+        System.out.println("\n________ Intersection between Upload and Resource Min Hashcode Sets _________\n");
         intersector = new MinHashSetIntersector();
         intersection = intersector.getIntersection(resourceHashCodeSet, uploadHashCodeSet);
         uploadStringSet.retainAll(resourceStringSet);
         System.out.println("Sets intersection rate: " + intersection + "%\n");
 
-
+        System.out.println("\n________ Intersection between Upload and Resource Hashcode Sets _________\n");
+        intersector = IntersectorFactory.getIntersector(IntersectorType.HASHCODE_SET_INTERSECTOR);
+        intersection = intersector.getIntersection(resourceHashCodeSet, uploadHashCodeSet);
+        uploadStringSet.retainAll(resourceStringSet);
+        System.out.println("Sets intersection rate: " + intersection + "%\n");
 
 
 

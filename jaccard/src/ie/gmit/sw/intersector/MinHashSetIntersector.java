@@ -1,9 +1,8 @@
-package ie.gmit.sw.shingle;
+package ie.gmit.sw.intersector;
 
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
-import java.util.TreeSet;
 
 public class MinHashSetIntersector implements SetIntersector<Integer> {
 
