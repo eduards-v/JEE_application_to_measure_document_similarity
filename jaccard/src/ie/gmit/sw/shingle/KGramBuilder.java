@@ -9,24 +9,20 @@ public class KGramBuilder extends ShingleBuildersFactory {
 
 
     @Override
-    Set<String> getShinglesAsString(List<String> textWords, final int SHINGLE_SIZE) {
+    public Set<String> getShinglesAsString(List<String> textWords) {
         Set<String> shingles = new HashSet<>();
 
-        if (SHINGLE_SIZE <= 1) throw new IllegalArgumentException("SHINGLE_SIZE has to be greater than 1!");
-
-        for(List<String> part : chopIntoShingleParts(textWords, SHINGLE_SIZE)){
+        for(List<String> part : chopIntoShingleParts(textWords)){
             shingles.add(String.join(" ", part));
         }
         return shingles;
     }
 
     @Override
-    Set<Integer> getShinglesAsIntegers(List<String> textWords, final int SHINGLE_SIZE) {
+    public Set<Integer> getShinglesAsIntegers(List<String> textWords) {
         Set<Integer> shingles = new HashSet<>();
 
-        if (SHINGLE_SIZE <= 1) throw new IllegalArgumentException("SHINGLE_SIZE has to be greater than 1!");
-
-        for(List<String> part : chopIntoShingleParts(textWords, SHINGLE_SIZE)){
+        for(List<String> part : chopIntoShingleParts(textWords)){
             shingles.add(String.join(" ", part).hashCode());
         }
         return shingles;
@@ -34,7 +30,7 @@ public class KGramBuilder extends ShingleBuildersFactory {
 
     // adopted from https://stackoverflow.com/questions/2895342/java-how-can-i-split-an-arraylist-in-multiple-small-arraylists
     // chop the list of an elements into list of sublists of specific size (SHINGLE_SIZE)
-    private List<List<String>> chopIntoShingleParts(List<String> allWords, final int SHINGLE_SIZE){
+    private List<List<String>> chopIntoShingleParts(List<String> allWords){
         List<List<String>> shingleParts = new ArrayList<>();
         List<String> temp;
         final int N = allWords.size();

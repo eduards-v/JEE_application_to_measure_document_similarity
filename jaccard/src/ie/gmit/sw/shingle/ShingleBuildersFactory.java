@@ -7,8 +7,10 @@ public abstract class ShingleBuildersFactory {
 
     private static ShingleBuildersFactory k_gram_factory = null;
 
-    abstract Set<String> getShinglesAsString(List<String> textWords, final int SHINGLE_SIZE) throws IllegalArgumentException;
-    abstract Set<Integer> getShinglesAsIntegers(List<String> textWords, final int SHINGLE_SIZE) throws IllegalArgumentException;
+    protected static int SHINGLE_SIZE = 5; // default set to 5
+
+    public abstract Set<String> getShinglesAsString(List<String> textWords);
+    public abstract Set<Integer> getShinglesAsIntegers(List<String> textWords);
 
     public static ShingleBuildersFactory getFactory(ShingleType type){
         ShingleBuildersFactory factory = null;
@@ -24,6 +26,11 @@ public abstract class ShingleBuildersFactory {
 
 
         return factory;
+    }
+
+    public static void setShingleSize(int SHINGLE_SIZE) throws IllegalArgumentException {
+        if (SHINGLE_SIZE <= 1) throw new IllegalArgumentException("SHINGLE_SIZE has to be greater than 1!");
+        ShingleBuildersFactory.SHINGLE_SIZE = SHINGLE_SIZE;
     }
 
 

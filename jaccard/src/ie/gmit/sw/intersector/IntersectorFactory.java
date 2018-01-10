@@ -10,7 +10,7 @@ public class IntersectorFactory {
         return instance;
     }
 
-    public static SetIntersector getIntersector(IntersectorType type){
+    public SetIntersector getIntersector(IntersectorType type){
         SetIntersector intersector = null;
 
         switch(type){
