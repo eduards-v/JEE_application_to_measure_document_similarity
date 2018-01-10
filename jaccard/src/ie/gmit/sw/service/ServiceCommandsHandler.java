@@ -12,8 +12,8 @@ import java.util.List;
 
 public class ServiceCommandsHandler {
 
-    DocumentsEqualityCommander command;
-    List<Document> uploadedDocs;
+    private DocumentsEqualityCommander command;
+    private List<Document> uploadedDocs;
 
     public ServiceCommandsHandler(List<Document> uploadedDocs) {
         this.uploadedDocs = uploadedDocs;

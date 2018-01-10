@@ -28,7 +28,7 @@ public class HashcodeKGramsEqualityCommand implements DocumentsEqualityCommander
         shingleBuilder = ShingleBuildersFactory.getFactory(ShingleType.K_GRAM);
         // Get appropriate intersector, hashcode set intersector is used here.
         intersector = IntersectorFactory.getInstance().getIntersector(IntersectorType.HASHCODE_SET_INTERSECTOR);
-        
+
         docsToProcess = new HashMap<>();
         results = new ArrayList<>();
 

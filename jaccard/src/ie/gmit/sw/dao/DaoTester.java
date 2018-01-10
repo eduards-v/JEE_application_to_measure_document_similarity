@@ -6,10 +6,7 @@ import ie.gmit.sw.shingle.ShingleBuildersFactory;
 import ie.gmit.sw.shingle.ShingleType;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Stream;
 
 public class DaoTester {
 

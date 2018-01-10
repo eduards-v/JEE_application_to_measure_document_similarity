@@ -15,8 +15,9 @@ public class Result {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder(100);
-        sb.append("Uploaded doc: ").append(uploadDocName).append("%n");
-        sb.append("Database doc: ").append(dbDocName).append("%n");
+        sb.append("________ RESULT ________").append("\n");
+        sb.append("Uploaded doc: ").append(uploadDocName).append("\n");
+        sb.append("Database doc: ").append(dbDocName).append("\n");
         sb.append("Intersection rate: ").append(intersection_rate).append("%");
 
         return sb.toString();
