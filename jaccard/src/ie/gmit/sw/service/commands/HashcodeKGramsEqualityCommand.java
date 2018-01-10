@@ -41,7 +41,7 @@ public class HashcodeKGramsEqualityCommand implements DocumentsEqualityCommander
     // Method that is exposed to a client through interface. Encapsulates
     // complex logic of document equality processing.
     @Override
-    public Collection<Result> processDocumentsEquality(List<Document> documents) {
+    public Collection<Result> processDocumentsEquality(Collection<Document> documents) {
         prepDocuments(documents);
         processIntersection();
         return results;
@@ -51,7 +51,7 @@ public class HashcodeKGramsEqualityCommand implements DocumentsEqualityCommander
     // because document comes with list of all words, but need Set
     // of integers (hashcode from each word).
     //
-    private void prepDocuments(List<Document> documents){
+    private void prepDocuments(Collection<Document> documents){
         Set<Integer> temp;
         for (Document document : documents){
             temp = shingleBuilder.getShinglesAsIntegers(document.getAllDocWords());

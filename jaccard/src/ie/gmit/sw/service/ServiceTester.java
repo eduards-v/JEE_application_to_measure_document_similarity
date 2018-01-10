@@ -19,7 +19,7 @@ public class ServiceTester {
         List<Document> documents = new ArrayList<>();
         Collection<Result> results;
 
-        File path = new File("files","resources");
+        File path = new File("files","uploads");
         File resource = new File(path, "upload.txt");
         List<String> resourceText = File2ListFetcher.fetchFile(resource);
 
@@ -31,6 +31,6 @@ public class ServiceTester {
 
         results = service.executeCommand(DocumentEqualityCommandTypes.HASHCODE_K_GRAM_CMD);
 
-        results.forEach((result -> System.out.println(result.toString())));
+        results.forEach(result -> System.out.println(result.toString()));
     }
 }

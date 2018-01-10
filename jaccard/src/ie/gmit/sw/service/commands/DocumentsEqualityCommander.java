@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface DocumentsEqualityCommander {
 
-    Collection<Result> processDocumentsEquality(List<Document> documents);
+    Collection<Result> processDocumentsEquality(Collection<Document> documents);
 }

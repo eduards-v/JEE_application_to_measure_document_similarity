@@ -10,7 +10,7 @@ public class StringKGramsEqualityCommand implements DocumentsEqualityCommander {
 
 
     @Override
-    public Collection<Result> processDocumentsEquality(List<Document> documents) {
+    public Collection<Result> processDocumentsEquality(Collection<Document> documents) {
         return null;
     }
 }

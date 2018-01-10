@@ -34,4 +34,20 @@ public final class File2ListFetcher {
 
         return allWords;
     }
+
+
+    public static List<String> fetchFile(InputStream in){
+        List<String> allWords = new ArrayList<>();
+
+        // BufferedReader to read underlying input stream
+        BufferedReader br = new BufferedReader(new InputStreamReader(in));
+
+        // get all lines from buffered reader as a Stream
+        Stream<String> stream = br.lines();
+
+        // for each line in a stream, split into words and add all words to list
+        stream.forEach((String line) -> allWords.addAll(Arrays.asList(line.split(" "))));
+
+        return allWords;
+    }
 }

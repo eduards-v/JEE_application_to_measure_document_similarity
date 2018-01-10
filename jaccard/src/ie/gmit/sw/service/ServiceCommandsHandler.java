@@ -8,14 +8,13 @@ import ie.gmit.sw.service.commands.DocumentEqualityCommandsFactory;
 import ie.gmit.sw.service.commands.DocumentsEqualityCommander;
 
 import java.util.Collection;
-import java.util.List;
 
 public class ServiceCommandsHandler {
 
     private DocumentsEqualityCommander command;
-    private List<Document> uploadedDocs;
+    private Collection<Document> uploadedDocs;
 
-    public ServiceCommandsHandler(List<Document> uploadedDocs) {
+    public ServiceCommandsHandler(Collection<Document> uploadedDocs) {
         this.uploadedDocs = uploadedDocs;
     }
 
