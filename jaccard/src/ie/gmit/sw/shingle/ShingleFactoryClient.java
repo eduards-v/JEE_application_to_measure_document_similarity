@@ -21,17 +21,30 @@ public class ShingleFactoryClient {
 
         ShingleBuildersFactory k_gram_factory = ShingleBuildersFactory.getFactory(ShingleType.K_GRAM);
 
+        int shingle_size = 5;
         Set<String> uploadStringSet = new HashSet<>();
+        Set<String> resourceStringSet = new HashSet<>();
         try{
-            uploadStringSet = k_gram_factory.getShinglesAsString(uploadText, 1);
+            uploadStringSet = k_gram_factory.getShinglesAsString(uploadText, shingle_size);
+            resourceStringSet = k_gram_factory.getShinglesAsString(resourceText, shingle_size);
 
         }catch (IllegalArgumentException e){
             System.out.println(e.getMessage());
         }
 
+
+        System.out.println("\n________ Resource String Shingles Set _________\n" +
+                "Set cardinality: " + resourceStringSet.size() + "\n");
         System.out.println("\n________ Upload String Shingles Set _________\n" +
-                           "Set Size: " + uploadStringSet.size());
-        uploadStringSet.forEach(System.out::println);
+                "Set cardinality: " + uploadStringSet.size() + "\n");
+
+        System.out.println("\n________ Intersection between Upload and Resource Sets _________\n");
+        IntersectionStrategy intersector = new StringSetIntersection();
+        float intersection = intersector.getIntersection(resourceStringSet, uploadStringSet);
+        uploadStringSet.retainAll(resourceStringSet);
+        System.out.println("Sets intersection rate: " + intersection + "%\n");
+
+
 
 
 

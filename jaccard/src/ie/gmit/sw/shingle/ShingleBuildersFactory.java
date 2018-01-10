@@ -7,8 +7,8 @@ public abstract class ShingleBuildersFactory {
 
     private static ShingleBuildersFactory k_gram_factory = null;
 
-    abstract Set<String> getShinglesAsString(List<String> textWords, int SHINGLE_SIZE) throws IllegalArgumentException;
-    abstract Set<Integer> getShinglesAsIntegers(List<String> textWords, int SHINGLE_SIZE) throws IllegalArgumentException;
+    abstract Set<String> getShinglesAsString(List<String> textWords, final int SHINGLE_SIZE) throws IllegalArgumentException;
+    abstract Set<Integer> getShinglesAsIntegers(List<String> textWords, final int SHINGLE_SIZE) throws IllegalArgumentException;
 
     public static ShingleBuildersFactory getFactory(ShingleType type){
         ShingleBuildersFactory factory = null;
