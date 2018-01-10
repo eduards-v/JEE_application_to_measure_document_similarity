@@ -1,5 +1,6 @@
 package ie.gmit.sw.service;
 
+import ie.gmit.sw.dao.DB4OContainer;
 import ie.gmit.sw.intersector.IntersectorType;
 import ie.gmit.sw.shingle.ShingleType;
 
@@ -12,6 +13,8 @@ import java.util.stream.Stream;
 public class ServiceClient {
 
     public static void main(String[] args) {
+        DB4OContainer dao = DB4OContainer.getInstance();
+
         File path = new File("files","inner");
         File upload = new File(path, "upload.txt");
         List<String> resourceText = fetchFile(upload);
